@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Listeler>
+
+@{
+    ViewData["Title"] = "Listelerim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Listelerim</h1>
+<hr class="soften" />
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td width="50%">
+                @Html.ValidationMessage(expression: "ListeAd", "", htmlAttributes: new { style = "color:red;" })
+            </td>
+            <td align="center">
+                @using (Html.BeginForm(actionName: "ListeOlustur", controllerName: "Home", method: FormMethod.Post, htmlAttributes: new { @class = "form-inline navbar-search" }))
+                {
+                    @Html.TextBox(expression: "ListeAd",null,htmlAttributes:new {@class="srchTxt", type="text", placeholder="Liste Adı" })
+                    <button type="submit" id="submitButton" class="btn btn-primary" style="height:40px;width:100px;">Oluştur</button>
+                }
+               
+            </td>
+
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td width="50%">
+                <h4>
+                    <a class="accordion-toggle collapsed" href="/home/ListeDetay/@item.ListeId">
+                        @item.ListeAd
+                    </a>
+                </h4>
+            </td>
+
+            <td>
+
+                @Html.ActionLink(linkText: "Görüntüle", actionName: "ListeDetay", routeValues: new { id = item.ListeId }, htmlAttributes: new { @class = "btn btn-info" })
+                &nbsp;
+                @Html.ActionLink(linkText: "Eklemeye Başla", actionName: "ListeSec", routeValues: new { id = item.ListeId }, htmlAttributes: new { @class = "btn btn-success" })
+                &nbsp;
+                @Html.ActionLink(linkText: "Sil", actionName: "ListeSil", routeValues: new { id = item.ListeId }, htmlAttributes: new { @class = "btn btn-danger", onclick = "return confirm('Liste siliniyor...');" })
+            </td>
+
+
+        </tr>
+
+    }
+</table>
+
+
+
+
+
+
+
+

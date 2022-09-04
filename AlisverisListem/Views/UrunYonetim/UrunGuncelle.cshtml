@@ -1,0 +1,60 @@
+﻿@model Urunler
+
+@{
+    ViewData["Title"] = "Ürün Güncelle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>UrunGuncelle</h1>
+
+
+<div class="well">
+
+    @using (Html.BeginForm(actionName: "UrunGuncelle", controllerName: "UrunYonetim", method: FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+    {
+        <div class="control-group">
+
+            <input asp-for="UrunId" class="form-control" type="hidden" />
+
+        </div>
+        <div class="control-group">
+
+            <img src="~/Resimler/@Model.UrunResim" alt="Urun Resim" width="300" height="300" />
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(m => m.UrunAd, htmlAttributes: new { @class = "control-label" })
+
+            <div class="controls">
+                @Html.TextBoxFor(m => m.UrunAd, htmlAttributes: new { @class = "form-control" })
+
+            </div>
+            @Html.ValidationMessageFor(m => m.UrunAd, message: "", htmlAttributes: new { style = "color:red;" })
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.UrunResim, htmlAttributes: new { @class = "control-label" })
+            <div class="controls">
+                <input type="file" asp-for="UrunResim" class="form-control">
+            </div>
+
+        </div>
+
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.KategoriId, htmlAttributes: new { @class = "control-label" })
+            <div class="controls">
+                @Html.DropDownListFor(u => u.KategoriId, (List<SelectListItem>)ViewBag.KategoriListe, new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <input class="btn btn-large btn-success" type="submit" value="Güncelle">
+            </div>
+        </div>
+
+
+    }
+
+</div>

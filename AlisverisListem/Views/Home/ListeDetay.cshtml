@@ -1,0 +1,79 @@
+﻿@model ListeDetayViewModel
+@{
+    ViewData["Title"] = "Liste Detay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h3>@Model.ListeAd</h3>
+<table class="table table-bordered"style="border-width:1px">
+    <thead>
+        <tr>
+            <th style="text-align:center"><h4>Ürün</h4></th>
+            
+            <th style="text-align:center"><h4>İşlem</h4></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var eleman in Model.ListeElemanlar)
+        {
+            <tr>
+                <td style="text-align:center">
+                    <img width="150" src="~/Resimler/@eleman.UrunResim" alt="" /><br />
+                    <h4> @eleman.UrunAd</h4>
+                </td>
+
+                <td style="text-align:center;vertical-align:middle">
+                    <div class="input-append">
+                        <a href="/home/ListeElemanDetay/@eleman.ListeElemanId" onc class="btn btn-info"><i class="icon-info-sign icon-white"></i></a>
+                        <a href="/home/ListeElemanKaldir/@eleman.ListeElemanId" class="btn btn-danger" onclick = "return confirm('Ürün siliniyor...');"><i class="icon-remove icon-white"></i></a>
+                        @if (eleman.AktifMi)
+                        {
+                            <a href="/home/ListeElemanGuncelle/@eleman.ListeElemanId" class="btn" ><i class="icon-check"></i></a>
+                        }
+                        else
+                        {
+                            <a href="/home/ListeElemanGuncelle/@eleman.ListeElemanId" class="btn btn-success" ><i class="icon-check"></i></a>
+                        }
+                    </div>
+                </td>
+
+            </tr>
+        }
+        <tr>
+            <td colspan="1" style="text-align:right"><strong>Temin Edilen Ürün Sayısı =</strong></td>
+            <td class="label label-important" style="display:block;text-align:center"> <strong>@Model.ListeElemanlar.Count(e => e.AktifMi == false) </strong></td>
+        </tr>
+        <tr>
+            <td colspan="1" style="text-align:right"><strong>Ürün Sayısı =</strong></td>
+            <td class="label label-important" style="display: block; text-align: center"> <strong>@Model.ListeElemanlar.Count </strong></td>
+        </tr>
+        <tr>
+            <td colspan="1" style="text-align:right"><strong>Alışveriş Durum =</strong></td>
+            <td class="label label-important" style="display: block; text-align: center">
+
+                @if (Model.AktifMi)
+                {<strong>
+                        Alışverişte Değil
+                    </strong>
+                }
+                else
+                {<strong> Alışverişte</strong>}
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+@if (Model.AktifMi)
+{
+    <a href="/home/ListeGuncelle/@Model.ListeId" class="btn btn-large btn-info pull-right">Alışverişe Çıkıyorum </a>
+}
+else
+{
+    <a href="/home/ListeGuncelle/@Model.ListeId" class="btn btn-large btn-success pull-right">Alışveriş Tamamlandı</a>
+}
+
+
+
+
+

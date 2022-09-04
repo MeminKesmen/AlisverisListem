@@ -1,0 +1,32 @@
+﻿@model Urunler
+
+@{
+    ViewData["Title"] = "Listeye Ekle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="well pagination-centered">
+
+
+
+    <h3>@Model.UrunAd </h3>
+    <img src="~/Resimler/@Model.UrunResim" width="300" height="300" alt="Urun Resim" />
+    @using (Html.BeginForm(actionName: "ListeyeEkle", controllerName: "Home"))
+    {
+        <div class="control-group">
+            <div class="control-group">
+                <input asp-for="UrunId" class="form-control" type="hidden" />
+            </div>
+            <div class="controls">
+                @Html.TextArea(expression: "UrunNot", htmlAttributes: new { rows = "4", placeholder = "Not Ekle", style = "width: 50%; height: 150px; padding: 12px 20px; box-sizing: border-box; border: 2px solid #ccc; border-radius: 4px; background-color: #f8f8f8; font-size: 16px; resize: none;" })
+            </div>
+            @Html.ValidationMessage("UrunNot", message: "", htmlAttributes: new { style = "color:red;" })
+            <div class="controls">
+                <button type="submit" class="btn btn-large btn-primary "> Listeye Ekle <i class=" icon-shopping-cart"></i></button>
+            </div>
+        </div>
+    }
+
+
+
+</div>

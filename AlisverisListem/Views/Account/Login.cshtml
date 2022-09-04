@@ -1,0 +1,40 @@
+﻿@model LoginViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <link href="~/themes/css/style.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div id="login-form-wrap">
+        <h2>Giriş</h2>
+        @using (Html.BeginForm(actionName: "Login", controllerName: "Account", method: FormMethod.Post, htmlAttributes: new { id = "login-form" }))
+        {
+            <p>
+                @Html.TextBoxFor(l => l.Mail, htmlAttributes: new { type = "email", placeholder = "Mail" })
+
+            </p>
+            <p>
+                @Html.TextBoxFor(m => m.Sifre, htmlAttributes: new { type = "password", placeholder = "Sifre" })
+
+            </p>
+            @Html.ValidationMessage("login", null, htmlAttributes: new { style = "color:red;" });
+            <p>
+                <input type="submit" id="login" value="Giriş Yap">
+            </p>
+
+        }
+
+        <div id="create-account-wrap">
+            <p>
+                @Html.ActionLink(linkText: "Üye Ol!", actionName: "KayitOl")
+            <p>
+        </div>
+    </div>
+
+
+</body>
+</html>

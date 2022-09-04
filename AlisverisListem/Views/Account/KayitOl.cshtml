@@ -1,0 +1,49 @@
+﻿@model Kullanicilar
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kayıt Ol!</title>
+    
+    <link href="~/themes/css/style.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div id="login-form-wrap">
+        <h2>Kayıt Ol</h2>
+        @using (Html.BeginForm(actionName: "KayitOl", controllerName: "Account", method: FormMethod.Post, htmlAttributes: new { id = "login-form" }))
+        {
+            <p>
+                @Html.TextBoxFor(k => k.KullaniciAd, htmlAttributes: new { placeholder = "Ad" })
+                @Html.ValidationMessageFor(k => k.KullaniciAd, null, htmlAttributes: new { style = "color:red;" })
+            </p>
+            <p>
+                @Html.TextBoxFor(k => k.KullaniciSoyad, htmlAttributes: new { placeholder = "Soyad" })
+                @Html.ValidationMessageFor(k => k.KullaniciSoyad, null, htmlAttributes: new { style = "color:red;" })
+            </p>
+            <p>
+                @Html.TextBoxFor(k => k.KullaniciMail, htmlAttributes: new { type="email",placeholder = "Mail" })
+                @Html.ValidationMessageFor(k=>k.KullaniciMail,null, htmlAttributes: new { style = "color:red;" })
+            </p>
+            <p>
+                @Html.TextBoxFor(k => k.KullaniciSifre, htmlAttributes: new { type = "password", placeholder = "Sifre" })
+                @Html.ValidationMessageFor(k => k.KullaniciSifre, null, htmlAttributes: new { style = "color:red;" })
+            </p>
+            <p>
+                @Html.TextBox("sifreTekrar", "", htmlAttributes: new { type = "password", placeholder = "Sifre Tekrar" })
+                @Html.ValidationMessage("sifreTekrar", null, htmlAttributes: new { style = "color:red;" })
+            </p>
+            <p>
+                <input type="submit" id="login" value="Onayla">
+            </p>
+
+        }
+        <div id="create-account-wrap">
+            
+        </div>
+
+    </div>
+
+
+</body>
+</html>

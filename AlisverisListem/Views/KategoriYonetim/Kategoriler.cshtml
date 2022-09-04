@@ -1,0 +1,57 @@
+﻿@model IPagedList<Kategoriler>
+
+@{
+    ViewData["Title"] = "Kategoriler";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Kategoriler</h1>
+<div class="pull-right">
+    <p>
+        @Html.ActionLink(linkText: "Kategori Ekle", actionName: "KategoriEkle", null, htmlAttributes: new { @class = "btn btn-success ;" })
+    </p>
+
+</div>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th style="font-size:20px">
+                @Html.DisplayNameFor(model => model.First().KategoriAd)
+            </th>
+
+
+            <th style="font-size:20px">İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                
+                <td style="font-size:15px;font-weight:bold">
+                    @Html.DisplayFor(modelItem => item.KategoriAd)
+                </td>
+                
+                <td>
+                    @Html.ActionLink(linkText: "Güncelle", actionName: "KategoriGuncelle", routeValues: new { id = item.KategoriId }, htmlAttributes: new { @class = "btn btn-info" }) |
+                    @Html.ActionLink(linkText: "Sil", actionName: "KategoriSil", routeValues: new { id = item.KategoriId }, htmlAttributes: new { @class = "btn btn-danger", onclick = "return confirm('Kategori siliniyor...');" }) |
+                    @Html.ActionLink(linkText: "Ürünler", actionName: "urunler",controllerName:"urunyonetim", routeValues: new { kategoriId = item.KategoriId }, htmlAttributes: new { @class = "btn btn-primary" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@*@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Kategoriler", new { sayfa }))*@
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Kategoriler", new { sayfa }), new PagedListRenderOptions
+{
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" },
+   
+
+});
+
+
+

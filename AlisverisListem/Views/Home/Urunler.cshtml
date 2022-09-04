@@ -1,0 +1,44 @@
+﻿@model IPagedList<UrunViewModel>
+
+@{
+    ViewData["Title"] = "Ürünler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Ürünler</h1>
+
+<div class="span12">
+    <ul class="thumbnails">
+        @foreach (var item in Model)
+        {
+            <li class="span3">
+                <div class="thumbnail">
+                    <img src="~/Resimler/@item.UrunResim" alt="Urun Resim" height="120" width="120"/>
+
+                    <div class="caption">
+                        <h5>@Html.DisplayFor(modelItem => item.UrunAd)</h5>
+
+                        <h4 style="text-align:center">
+                            @Html.ActionLink(linkText: "Listeye Ekle", actionName: "ListeyeEkle", controllerName: "home", routeValues: new { id = item.UrunId }, htmlAttributes: new { @class = "btn btn-success" })
+
+                        </h4>
+                    </div>
+                </div>
+            </li>
+
+        }
+    </ul>
+</div>
+<div class="pull-left">
+
+    @Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Urunler", new { kategoriId = @ViewBag.kategoriId, urunAd = @ViewBag.urunAd, sayfa }), new PagedListRenderOptions
+{
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" },
+
+
+});
+
+
+
+</div>
